@@ -1,6 +1,7 @@
 var express = require('express');
 var mysql = require('mysql');
 var app = express();
+var i;
 
 // set the view engine to ejs
 app.set('view engine', 'ejs');
@@ -8,19 +9,36 @@ app.set('view engine', 'ejs');
 // use res.render to load up an ejs view file
 var connection = mysql.createConnection({
     host: '206.12.96.242',
-    user: 'group0',
-    password: 'untanglingGroup0',
-    database: 'group1'
+    user: 'group7',
+    password: 'untanglingGroup7',
+    database: 'p3'
 });
 connection.connect();
 
 var listings;
 
-connection.query('SELECT * FROM listings', function(err, rows, fields) {
+connection.query('SELECT * FROM items', function(err, rows, fields) {
     if (err) throw err;
-
+    console.log("******************");
+    console.log("Query to display all the contents");
+    console.log("******************");
     listings = rows;
-    console.log(rows[0]);
+    for( i=0; i<rows.length;i++){
+        console.log(rows[i]);
+    }
+    
+});
+
+connection.query('SELECT items.itemsname, items.itemsprice  FROM items WHERE itemsprice>1.25;', function(err, rows, fields) {
+    if (err) throw err;
+    console.log("******************");
+    console.log("Query to display all items over $1.25");
+    console.log("******************");
+    listings = rows;
+    for( i=0; i<rows.length;i++){
+        console.log(rows[i]);
+    }
+    
 });
 
 connection.end();
@@ -45,6 +63,6 @@ app.get('/about', function(req, res) {
     });
 });
 
-app.listen(8001, function() {
-    console.log('Example app listening on port 8001!')
+app.listen(3306, function() {
+    console.log('Example app listening on port 3306!')
 })
