@@ -16,10 +16,10 @@
             <p>Welcome to templating using EJS</p>
         </div>
 
-        <h2>Loop</h2>
+        <h2>Loop items over $1.25</h2>
         <ul>
-            <% listings.forEach(function(item) { %>
-                <li><%= item.itemname %> - <%= item.price %></li>
+            <% listings.forEach(function(items) { %>
+                <li><%= items.itemsname %> - <%= items.itemsprice %></li>
             <% }); %>
         </ul>
     </main>
